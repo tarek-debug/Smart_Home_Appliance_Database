@@ -1,0 +1,142 @@
+// ER Model
+erdiagram House_Appliances
+
+// Options
+notation=default
+
+// Entities
+
+// House appliances
+entity Appliance {
+    appliance_id: INT key
+    appliance_name: VARCHAR(25)
+    appliance_type: VARCHAR(25)
+    appliance_brand: VARCHAR(25)
+    appliance_model:VARCHAR(25)
+}
+
+// Rooms in the house
+entity Room {
+    room_id: INT key
+    room_name: VARCHAR(25)
+    room_type:VARCHAR(25)
+    floor: VARCHAR(25)
+}
+
+// Users of the house 
+entity User {
+    user_id: INT key
+    first_name: VARCHAR(25)
+    last_name: VARCHAR(25)
+    username: VARCHAR(25)
+    password: VARCHAR(25)
+    phone_number: INT
+}
+
+// User accounts for the house
+entity Account {
+    account_number: INT key
+    user_id: INT key
+    account_type: VARCHAR(25)
+    log_in_Time: TIMESTAMP
+    log_out_time: TIMESTAMP
+}
+
+// Usage schedules for appliances
+entity Schedule {
+    schedule_id: INT key
+    start_Time: TIMESTAMP 
+    end_time: TIMESTAMP
+    recurances: INT 
+    status: BOOLEAN
+}
+
+//  Appliance manufacturers information
+entity Manufacturer {
+manufacturer_id: INT key
+manufacturer_name: VARCHAR(255)
+contact_info: VARCHAR(255)
+warranty_details: VARCHAR(255)
+}
+
+// Maintenance and repair records for appliances
+entity Maintenance_Repair {
+maintenance_repair_id: INT key
+date_last_maintenance: TIMESTAMP
+cost_of_repairs: FLOAT
+service_provider: VARCHAR(255)
+}
+
+// Insurance policies for appliances
+entity Insurance_Policy {
+    policy_id: INT key
+    appliance_id: INT key
+    start_date: TIMESTAMP 
+    end_date: TIMESTAMP 
+}
+
+// Premium payments for insurance policies
+entity Premium_Payment {
+    payment_id: INT key
+    policy_id: INT 
+    payment_date: TIMESTAMP 
+    amount: FLOAT 
+}
+
+
+// Relationship between User and Account tables. 
+// User can have multiple account, but an account can only belong to one user
+relationship Manages {
+  User[1] -> Account[N]
+}
+
+// Relationship between Room and Appliance tables
+// A room can have multiple appliances, but an appliance can only belong to ( or be physically in) one room
+relationship Contains {
+    Room[1]  ->  Appliance[N]
+}
+
+// Relationship between Appliance and Schedule tables
+// an appliance can have mutliple schedules ( it could be used multiple times, thus having more than start and end times), but a schedule can only belong to one appliance 
+relationship Has_Schedule {
+    Appliance[1]  ->  Schedule[N]
+}
+
+// Relationship between Account and Room tables
+// Multiple accounts can have access to multiple rooms 
+
+relationship Has_Access {
+    Account[N]  ->  Room[N]
+}
+
+// Relationship between Manufacturer and Appliance tables
+// A Manufacturer can produce many appliances, but an appliance can belong to only one manufacturer. 
+//I understand it is possible for a product to have multiple manufacturer. For that case, I am assuming the manufacturer to be the most immediete or who had the most contribution.  
+relationship Manufactured_by {
+Manufacturer[1] -> Appliance[N]
+}
+
+//  Relationship between Appliance and Maintenance_Repair tables
+// An appliance can be repaied by the same Maintenance_Repair facility.
+relationship Requires_Maintenance_Repair {
+Appliance[N] -> Maintenance_Repair[1]
+}
+
+// Relationship between Appliance and Insurance_Policy tables
+// An appliance can have multiple insurance policy, but each policy can only belong to one appliance. 
+relationship Insured_By {
+    Appliance[1] -> Insurance_Policy[N]
+}
+
+// Weak relationship between Insurance_Policy and Premium_Payment tables
+// Insurance policy can covered by multiple premium payments
+weak relationship Premium_Payment {
+    Insurance_Policy[1]  -> Premium_Payment[N]
+}
+
+//  Relationship between Room and itself (for the case of rooms within other rooms)
+// This is when room has subroom (eg, master bedroom having a private bathroom)
+relationship Has_Parent_Room {
+    Room[1] -> Room[0..1]
+}
+
