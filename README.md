@@ -2,7 +2,7 @@
 
 ## Domain Description
 
-Title: Smart Home Appliance Management System
+- Title: Smart Home Appliance Management System
 
 - Description: The schema represents a database for managing smart home appliances, their maintenance and repair, insurance policies, and premium payments. It includes tables for users, their login details, rooms, appliances, manufacturers, schedules, maintenance and repair details, insurance policies, and premium payments. The schema is designed to help users keep track of their smart home appliances, their maintenance and repair schedules, insurance policies, and premium payments. The system allows users to add, update, and delete their appliances and their details, as well as schedule maintenance and repair tasks and manage their insurance policies and premium payments.
 
@@ -76,8 +76,8 @@ Account(user_in_id, log_in_Time, log_out_time, user_id*)
 
 Nontrivial Functional Dependencies:
 
-{account_number, user_in_id} → {account_type, log_in_Time, log_out_time}
-{user_in_id} → {account_number, account_type, log_in_Time, log_out_time}
+--{account_number, user_in_id} → {account_type, log_in_Time, log_out_time}  
+--{user_in_id} → {account_number, account_type, log_in_Time, log_out_time}  
 
 Explanation: The primary key of the Account table is {account_number, user_in_id}, which is a superkey for all of the functional dependencies in the table. Additionally, the foreign key constraint on user_in_id ensures that every value in this column references a valid user_id in the User table, which means that there are no redundancies or anomalies caused by this dependency.
 
