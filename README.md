@@ -81,6 +81,7 @@ Result: Yes, the determinant {user_in_id} is a candidate key, so Account is in B
 Room(room_id, room_name, room_type, parent_room_id*)
 
 Nontrivial Functional Dependencies:
+
 {room_id} → {room_name, room_type, parent_room_id}
 
 Explanation: This functional dependency means that given a value of room_id, we can determine the corresponding room_name, room_type, and parent_room_id. Since room_id is the primary key, it is already a superkey, and this functional dependency does not violate BCNF.
@@ -92,6 +93,7 @@ Result:Yes,  the determinant {room_id} is a candidate key, so Appliance is in BC
 Appliance(appliance_id, appliance_name, appliance_type, appliance_brand, appliance_model, room_id*, manufacturer_id*, maintenance_repair_id*)
 
 Nontrivial Functional Dependencies:
+
 {appliance_id} -> {appliance_name, appliance_type, appliance_brand, appliance_model, room_id, manufacturer_id, maintenance_repair_id}
 
 Explanation: the {appliance_id} attribute is the primary key of the Appliance table, which means that it is already guaranteed to be unique and can uniquely identify each tuple in the table. Therefore, any attribute that is functionally dependent on appliance_id is also guaranteed to be unique for each tuple in the table.
@@ -119,6 +121,7 @@ Result: Yes, the determinant {schedule_id} is a candidate key, so Schedule is in
 Manufacturer(manufacturer_id, manufacturer_name, contact_info, warranty_details)
 
 Nontrivial Functional Dependencies:
+
 {manufacturer_id} → {manufacturer_name, contact_info, warranty_details}
 
 Result:Yes, the determinant {manufacturer_id} is a candidate key, so Manufacturer is in BCNF.
@@ -128,6 +131,7 @@ Result:Yes, the determinant {manufacturer_id} is a candidate key, so Manufacture
 Maintenance_Repair(maintenance_repair_id, date_last_maintenance, cost_of_repairs, service_provider)
 
 Nontrivial Functional Dependencies:
+
 {maintenance_repair_id} → {date_last_maintenance,cost_of_repairs, service_provider}
 
 Result: Yes, the determinant {maintenance_repair_id} is a candidate key, so Maintenance_Repair is in BCNF.
@@ -138,7 +142,9 @@ Result: Yes, the determinant {maintenance_repair_id} is a candidate key, so Main
 Insurance_Policy(policy_id, appliance_id*, start_date, end_date)
 
 Nontrivial Functional Dependencies:
+
 {policy_id, appliance_id} → { start_date, end_date}
+
 Exlpanation:
 This implies that given a policy_id and an appliance_id, there can only be one start date and end date associated with that combination. Therefore, it satisfies the BCNF criterion.
 Result: Yes, the determinant {policy_id} is a candidate key, so Insurance_Policy is in BCNF.
@@ -149,6 +155,7 @@ Result: Yes, the determinant {policy_id} is a candidate key, so Insurance_Policy
 Premium_Payment(payment_id, policy_id*, payment_date, amount)
 
 Nontrivial Functional Dependencies:
+
 {payment_id} → {policy_id, payment_date, amount}
 
 Explanation:
