@@ -51,8 +51,8 @@ Insurance_Policy(**policy_id**, ***appliance_id***, start_date, end_date)
 Premium_Payment(**payment_id**, ***policy_id***, payment_date, amount)
 
 Note:
-Bold words are primary keys
-Italic word are forigen keys
+Bold words are primary keys.   
+Italic word are forigen keys.   
 
 
 ## Boyce–Codd Normal Form Decomposition
@@ -61,11 +61,11 @@ Italic word are forigen keys
 User(user_id, first_name, last_name, username, password, phone_number)
 
 Nontrivial Functional Dependencies:
--- {user_id} -> {first_name, last_name, username, password, phone_number}
--- {user_id} -> {first_name}
--- {user_id} -> {last_name, username, password, phone_number}
--- {user_id} -> {password}
--- {user_id} -> {phone_number}
+- {user_id} -> {first_name, last_name, username, password, phone_number}
+- {user_id} -> {first_name}
+- {user_id} -> {last_name, username, password, phone_number}
+- {user_id} -> {password}
+- {user_id} -> {phone_number}
 
 Result: Yes, the determinant {user_id} is a candidate key, so User is in BCNF.
 
@@ -76,8 +76,8 @@ Account(user_in_id, log_in_Time, log_out_time, user_id*)
 
 Nontrivial Functional Dependencies:
 
--- {account_number, user_in_id} → {account_type, log_in_Time, log_out_time}  
--- {user_in_id} → {account_number, account_type, log_in_Time, log_out_time}  
+- {account_number, user_in_id} → {account_type, log_in_Time, log_out_time}  
+- {user_in_id} → {account_number, account_type, log_in_Time, log_out_time}  
 
 Explanation: The primary key of the Account table is {account_number, user_in_id}, which is a superkey for all of the functional dependencies in the table. Additionally, the foreign key constraint on user_in_id ensures that every value in this column references a valid user_id in the User table, which means that there are no redundancies or anomalies caused by this dependency.
 
@@ -90,7 +90,7 @@ Room(room_id, room_name, room_type, parent_room_id*)
 
 Nontrivial Functional Dependencies:
 
--- {room_id} → {room_name, room_type, parent_room_id}
+- {room_id} → {room_name, room_type, parent_room_id}
 
 Explanation: This functional dependency means that given a value of room_id, we can determine the corresponding room_name, room_type, and parent_room_id. Since room_id is the primary key, it is already a superkey, and this functional dependency does not violate BCNF.
 
@@ -98,11 +98,11 @@ Result:Yes,  the determinant {room_id} is a candidate key, so Appliance is in BC
 
 ### Appliance Table
 
--- Appliance(appliance_id, appliance_name, appliance_type, appliance_brand, appliance_model, room_id*, manufacturer_id*, maintenance_repair_id*)
+- Appliance(appliance_id, appliance_name, appliance_type, appliance_brand, appliance_model, room_id*, manufacturer_id*, maintenance_repair_id*)
 
 Nontrivial Functional Dependencies:
 
--- {appliance_id} -> {appliance_name, appliance_type, appliance_brand, appliance_model, room_id, manufacturer_id, maintenance_repair_id}
+- {appliance_id} -> {appliance_name, appliance_type, appliance_brand, appliance_model, room_id, manufacturer_id, maintenance_repair_id}
 
 Explanation: the {appliance_id} attribute is the primary key of the Appliance table, which means that it is already guaranteed to be unique and can uniquely identify each tuple in the table. Therefore, any attribute that is functionally dependent on appliance_id is also guaranteed to be unique for each tuple in the table.
 
@@ -115,9 +115,9 @@ Schedule(schedule_id, start_Time, end_time, recurances, status, appliance_id*)
 
 Nontrivial Functional Dependencies:
 
--- {schedule_id} → {start_time, end_time, recurances, status, appliance_id}
+- {schedule_id} → {start_time, end_time, recurances, status, appliance_id}
 
--- {appliance_id} → {schedule_id, start_time, end_time, recurances, status}
+- {appliance_id} → {schedule_id, start_time, end_time, recurances, status}
 
 Explanation: The Schedule table only has one non-trivial functional dependency: {schedule_id} → {start_Time, end_time, recurances, status, appliance_id}. This functional dependency meets the requirements of BCNF since the determinant {schedule_id} is a superkey of the table, meaning that every non-key attribute is functionally dependent on it. Therefore, the Schedule table is in BCNF.
 
@@ -126,11 +126,11 @@ Result: Yes, the determinant {schedule_id} is a candidate key, so Schedule is in
 
 ### Manufacturer Table
 
--- Manufacturer(manufacturer_id, manufacturer_name, contact_info, warranty_details)
+- Manufacturer(manufacturer_id, manufacturer_name, contact_info, warranty_details)
 
 Nontrivial Functional Dependencies:
 
--- {manufacturer_id} → {manufacturer_name, contact_info, warranty_details}
+- {manufacturer_id} → {manufacturer_name, contact_info, warranty_details}
 
 Result:Yes, the determinant {manufacturer_id} is a candidate key, so Manufacturer is in BCNF.
 
@@ -140,7 +140,7 @@ Maintenance_Repair(maintenance_repair_id, date_last_maintenance, cost_of_repairs
 
 Nontrivial Functional Dependencies:
 
--- {maintenance_repair_id} → {date_last_maintenance,cost_of_repairs, service_provider}
+- {maintenance_repair_id} → {date_last_maintenance,cost_of_repairs, service_provider}
 
 Result: Yes, the determinant {maintenance_repair_id} is a candidate key, so Maintenance_Repair is in BCNF.
 
@@ -151,7 +151,7 @@ Insurance_Policy(policy_id, appliance_id*, start_date, end_date)
 
 Nontrivial Functional Dependencies:
 
--- {policy_id, appliance_id} → { start_date, end_date}
+- {policy_id, appliance_id} → { start_date, end_date}
 
 Exlpanation:
 This implies that given a policy_id and an appliance_id, there can only be one start date and end date associated with that combination. Therefore, it satisfies the BCNF criterion.
@@ -164,7 +164,7 @@ Premium_Payment(payment_id, policy_id*, payment_date, amount)
 
 Nontrivial Functional Dependencies:
 
--- {payment_id} → {policy_id, payment_date, amount}
+- {payment_id} → {policy_id, payment_date, amount}
 
 Explanation:
 Since the primary key is {payment_id}, every other attribute in the table is functionally dependent on {payment_id}. In other words, given a value for {payment_id}, we can uniquely determine the values for {policy_id}, {payment_date}, and {amount}. Therefore, the only non-trivial functional dependency in this table is {payment_id} → {policy_id, payment_date, amount}.
@@ -233,14 +233,14 @@ Output:
 appliance_name,room_name  
 Air Conditioner,Master Bedroom  
 Blender,Living Room  
-Child Bedroom Light,Child Bedroom  
+Child Bedroom Light,Child Bedroom    
 Dishwasher,Living Room  
 Dryer,Kitchen  
 Fan,Master Bedroom Bathroom  
 Kitchen Light,Kitchen   
 Laundry Light,Laundry  
 Living Room Light,Living Room  
-Master Bedroom Light,Master Bedroom  
+Master Bedroom Light,Master Bedroom    
 Microwave,Living Room  
 Oven,Living Room  
 Refrigerator,Living Room  
@@ -265,80 +265,81 @@ total_cost_of_repairs
 
 ### Query 5: Query to find all appliances in a room with at least one active schedule
 
-SELECT * FROM Appliance
-WHERE room_id = (
-  SELECT room_id FROM Room WHERE room_name = 'Living Room'
-) AND appliance_id IN (
-  SELECT appliance_id FROM Schedule WHERE status = true
-);
+SELECT * FROM Appliance  
+WHERE room_id = (  
+  SELECT room_id FROM Room WHERE room_name = 'Living Room'  
+) AND appliance_id IN (  
+  SELECT appliance_id FROM Schedule WHERE status = true  
+);  
 
 Output:
 
-appliance_id,appliance_name,appliance_type,appliance_brand,appliance_model,room_id,manufacturer_id,maintenance_repair_id
-1,Refrigerator,Kitchen,Samsung,RS27T5561SR/AA,1,1,NULL
-3,Oven,Kitchen,GE,JTS5000SNSS,1,3,NULL
-5,Microwave,Kitchen,Panasonic,NN-SN966S,1,5,1
+appliance_id,appliance_name,appliance_type,appliance_brand,appliance_model,room_id,manufacturer_id,maintenance_repair_id  
+1,Refrigerator,Kitchen,Samsung,RS27T5561SR/AA,1,1,NULL  
+3,Oven,Kitchen,GE,JTS5000SNSS,1,3,NULL  
+5,Microwave,Kitchen,Panasonic,NN-SN966S,1,5,1  
 
 
 ### Query 6: Query to find all appliances that have had maintenance or repairs costing more than the average cost across all appliances
 
-SELECT * FROM Appliance
-WHERE maintenance_repair_id IN (
-  SELECT maintenance_repair_id FROM Maintenance_Repair
-  WHERE cost_of_repairs > (
-    SELECT AVG(cost_of_repairs) FROM Maintenance_Repair
-  )
-);
+SELECT * FROM Appliance  
+WHERE maintenance_repair_id IN (  
+  SELECT maintenance_repair_id FROM Maintenance_Repair  
+  WHERE cost_of_repairs > (  
+    SELECT AVG(cost_of_repairs) FROM Maintenance_Repair  
+  )  
+);  
 
 Output:
 
-appliance_id,appliance_name,appliance_type,appliance_brand,appliance_model,room_id,manufacturer_id,maintenance_repair_id
-7,Dishwasher,Kitchen,Bosch,SHEM63W55N,1,7,2
+appliance_id,appliance_name,appliance_type,appliance_brand,appliance_model,room_id,manufacturer_id,maintenance_repair_id  
+7,Dishwasher,Kitchen,Bosch,SHEM63W55N,1,7,2  
 
 
 ### Query 7: Select all the appliances where it is in the living room manufactured by LG 
 
-SELECT appliance_name FROM Appliance
-NATURAL JOIN Room
-WHERE room_name = 'Living Room'
-INTERSECT
-SELECT appliance_name FROM Appliance
-NATURAL JOIN Manufacturer
-WHERE manufacturer_name = 'LG';
+SELECT appliance_name FROM Appliance  
+NATURAL JOIN Room  
+WHERE room_name = 'Living Room'  
+INTERSECT  
+SELECT appliance_name FROM Appliance  
+NATURAL JOIN Manufacturer  
+WHERE manufacturer_name = 'LG';  
 
 
 Output:
 
-appliance_name
-Living Room Light
+appliance_name  
+Living Room Light  
 
 
 ### Query 8: Display the count of appliances in each room with more than 2 appliances
 
-SELECT Room.room_name, COUNT(Appliance.appliance_id) AS appliance_count
-FROM Room
-LEFT JOIN Appliance ON Room.room_id = Appliance.room_id
-GROUP BY Room.room_name
-HAVING appliance_count > 2;
+SELECT Room.room_name, COUNT(Appliance.appliance_id) AS appliance_count  
+FROM Room  
+LEFT JOIN Appliance ON Room.room_id = Appliance.room_id  
+GROUP BY Room.room_name  
+HAVING appliance_count > 2;  
 
 Output:
 
-room_name,appliance_count
-Kitchen,3
-Living Room,7
+room_name,appliance_count  
+Kitchen,3  
+Living Room,7  
 
-/*Query 9: number of rooms in each group using the COUNT() function*/
-SELECT room_type, COUNT(room_type) as num_rooms
-FROM Room
-GROUP BY room_type;
+### Query 9: number of rooms in each group using the COUNT() function
+
+SELECT room_type, COUNT(room_type) as num_rooms  
+FROM Room  
+GROUP BY room_type;  
 
 Output:
 
-room_type,num_rooms
-Bedroom,1
-Common Area,2
-Private Bathroom,1
-Private Room,1
-utility ,1
+room_type,num_rooms  
+Bedroom,1  
+Common Area,2  
+Private Bathroom,1  
+Private Room,1  
+utility ,1  
 
 
