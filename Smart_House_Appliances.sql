@@ -97,12 +97,12 @@ The foreign key is "Cascade" because if a user is deleted, all their correspondi
 CREATE TABLE Account
 (
     account_number INT,
+    user_id INT,
     account_type VARCHAR(25) NOT NULL,
-    user_in_id INT,
     log_in_Time TIMESTAMP,
     log_out_time TIMESTAMP,
-    PRIMARY KEY (account_number, user_in_id),
-    FOREIGN KEY (user_in_id) REFERENCES User(user_id)
+    PRIMARY KEY (account_number, user_id),
+    FOREIGN KEY (user_id) REFERENCES User(user_id)
     ON DELETE CASCADE
 );
 
@@ -187,7 +187,3 @@ CREATE TABLE Premium_Payment
     ON DELETE CASCADE
 
 );
-
-
-
-
