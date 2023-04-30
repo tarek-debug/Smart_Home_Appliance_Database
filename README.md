@@ -2,7 +2,7 @@
 
 ## Domain Description
 
-###Title: Smart Home Appliance Management System
+Title: Smart Home Appliance Management System
 
 Description: The schema represents a database for managing smart home appliances, their maintenance and repair, insurance policies, and premium payments. It includes tables for users, their login details, rooms, appliances, manufacturers, schedules, maintenance and repair details, insurance policies, and premium payments. The schema is designed to help users keep track of their smart home appliances, their maintenance and repair schedules, insurance policies, and premium payments. The system allows users to add, update, and delete their appliances and their details, as well as schedule maintenance and repair tasks and manage their insurance policies and premium payments.
 
@@ -61,7 +61,8 @@ Nontrivial Functional Dependencies:
 Result: Yes, the determinant {user_id} is a candidate key, so User is in BCNF.
 
 
-###Account(user_in_id, log_in_Time, log_out_time, user_id*)
+###Account Table
+Account(user_in_id, log_in_Time, log_out_time, user_id*)
 
 Nontrivial Functional Dependencies:
 
