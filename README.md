@@ -32,13 +32,21 @@ Premium_Payment: This table stores information about premium payments for insura
 
 ## Relational Schema
 User(**user_id**, first_name, last_name, username, password, phone_number)
+
 Account(**account_number**, ***user_id*** , account_type, log_in_Time , log_out_time)
+
 Room(**room_id**, room_name, room_type, ***parent_room_id***)
+
 Appliance(**appliance_id**, appliance_name, appliance_type, appliance_brand, appliance_model, ***room_id***, ***manufacturer_id***, ***maintenance_repair_id***)
+
 Schedule(**schedule_id**, start_Time, end_time, recurances, status, ***appliance_id***)
+
 Manufacturer(**manufacturer_id**, manufacturer_name, contact_info, warranty_details)
+
 Maintenance_Repair(**maintenance_repair_id**, date_last_maintenance, cost_of_repairs, service_provider)
+
 Insurance_Policy(**policy_id**, ***appliance_id***, start_date, end_date)
+
 Premium_Payment(**payment_id**, ***policy_id***, payment_date, amount)
 
 Note:
