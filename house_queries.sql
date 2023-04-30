@@ -104,3 +104,6 @@ HAVING appliance_count > 2;
 SELECT room_type, COUNT(room_type) as num_rooms
 FROM Room
 GROUP BY room_type;
+
+
+
