@@ -61,11 +61,11 @@ Italic word are forigen keys
 User(user_id, first_name, last_name, username, password, phone_number)
 
 Nontrivial Functional Dependencies:
-{user_id} -> {first_name, last_name, username, password, phone_number}
-{user_id} -> {first_name}
-{user_id} -> {last_name, username, password, phone_number}
-{user_id} -> {password}
-{user_id} -> {phone_number}
+-- {user_id} -> {first_name, last_name, username, password, phone_number}
+-- {user_id} -> {first_name}
+-- {user_id} -> {last_name, username, password, phone_number}
+-- {user_id} -> {password}
+-- {user_id} -> {phone_number}
 
 Result: Yes, the determinant {user_id} is a candidate key, so User is in BCNF.
 
@@ -76,8 +76,8 @@ Account(user_in_id, log_in_Time, log_out_time, user_id*)
 
 Nontrivial Functional Dependencies:
 
---{account_number, user_in_id} → {account_type, log_in_Time, log_out_time}  
---{user_in_id} → {account_number, account_type, log_in_Time, log_out_time}  
+-- {account_number, user_in_id} → {account_type, log_in_Time, log_out_time}  
+-- {user_in_id} → {account_number, account_type, log_in_Time, log_out_time}  
 
 Explanation: The primary key of the Account table is {account_number, user_in_id}, which is a superkey for all of the functional dependencies in the table. Additionally, the foreign key constraint on user_in_id ensures that every value in this column references a valid user_id in the User table, which means that there are no redundancies or anomalies caused by this dependency.
 
@@ -90,7 +90,7 @@ Room(room_id, room_name, room_type, parent_room_id*)
 
 Nontrivial Functional Dependencies:
 
-{room_id} → {room_name, room_type, parent_room_id}
+-- {room_id} → {room_name, room_type, parent_room_id}
 
 Explanation: This functional dependency means that given a value of room_id, we can determine the corresponding room_name, room_type, and parent_room_id. Since room_id is the primary key, it is already a superkey, and this functional dependency does not violate BCNF.
 
@@ -98,11 +98,11 @@ Result:Yes,  the determinant {room_id} is a candidate key, so Appliance is in BC
 
 ### Appliance Table
 
-Appliance(appliance_id, appliance_name, appliance_type, appliance_brand, appliance_model, room_id*, manufacturer_id*, maintenance_repair_id*)
+-- Appliance(appliance_id, appliance_name, appliance_type, appliance_brand, appliance_model, room_id*, manufacturer_id*, maintenance_repair_id*)
 
 Nontrivial Functional Dependencies:
 
-{appliance_id} -> {appliance_name, appliance_type, appliance_brand, appliance_model, room_id, manufacturer_id, maintenance_repair_id}
+-- {appliance_id} -> {appliance_name, appliance_type, appliance_brand, appliance_model, room_id, manufacturer_id, maintenance_repair_id}
 
 Explanation: the {appliance_id} attribute is the primary key of the Appliance table, which means that it is already guaranteed to be unique and can uniquely identify each tuple in the table. Therefore, any attribute that is functionally dependent on appliance_id is also guaranteed to be unique for each tuple in the table.
 
@@ -115,9 +115,9 @@ Schedule(schedule_id, start_Time, end_time, recurances, status, appliance_id*)
 
 Nontrivial Functional Dependencies:
 
-{schedule_id} → {start_time, end_time, recurances, status, appliance_id}
+-- {schedule_id} → {start_time, end_time, recurances, status, appliance_id}
 
-{appliance_id} → {schedule_id, start_time, end_time, recurances, status}
+-- {appliance_id} → {schedule_id, start_time, end_time, recurances, status}
 
 Explanation: The Schedule table only has one non-trivial functional dependency: {schedule_id} → {start_Time, end_time, recurances, status, appliance_id}. This functional dependency meets the requirements of BCNF since the determinant {schedule_id} is a superkey of the table, meaning that every non-key attribute is functionally dependent on it. Therefore, the Schedule table is in BCNF.
 
@@ -126,11 +126,11 @@ Result: Yes, the determinant {schedule_id} is a candidate key, so Schedule is in
 
 ### Manufacturer Table
 
-Manufacturer(manufacturer_id, manufacturer_name, contact_info, warranty_details)
+-- Manufacturer(manufacturer_id, manufacturer_name, contact_info, warranty_details)
 
 Nontrivial Functional Dependencies:
 
-{manufacturer_id} → {manufacturer_name, contact_info, warranty_details}
+-- {manufacturer_id} → {manufacturer_name, contact_info, warranty_details}
 
 Result:Yes, the determinant {manufacturer_id} is a candidate key, so Manufacturer is in BCNF.
 
@@ -140,7 +140,7 @@ Maintenance_Repair(maintenance_repair_id, date_last_maintenance, cost_of_repairs
 
 Nontrivial Functional Dependencies:
 
-{maintenance_repair_id} → {date_last_maintenance,cost_of_repairs, service_provider}
+-- {maintenance_repair_id} → {date_last_maintenance,cost_of_repairs, service_provider}
 
 Result: Yes, the determinant {maintenance_repair_id} is a candidate key, so Maintenance_Repair is in BCNF.
 
@@ -151,7 +151,7 @@ Insurance_Policy(policy_id, appliance_id*, start_date, end_date)
 
 Nontrivial Functional Dependencies:
 
-{policy_id, appliance_id} → { start_date, end_date}
+-- {policy_id, appliance_id} → { start_date, end_date}
 
 Exlpanation:
 This implies that given a policy_id and an appliance_id, there can only be one start date and end date associated with that combination. Therefore, it satisfies the BCNF criterion.
@@ -164,7 +164,7 @@ Premium_Payment(payment_id, policy_id*, payment_date, amount)
 
 Nontrivial Functional Dependencies:
 
-{payment_id} → {policy_id, payment_date, amount}
+-- {payment_id} → {policy_id, payment_date, amount}
 
 Explanation:
 Since the primary key is {payment_id}, every other attribute in the table is functionally dependent on {payment_id}. In other words, given a value for {payment_id}, we can uniquely determine the values for {policy_id}, {payment_date}, and {amount}. Therefore, the only non-trivial functional dependency in this table is {payment_id} → {policy_id, payment_date, amount}.
@@ -179,88 +179,88 @@ Result: Yes, the determinant {payment_id} is a candidate key, so Premium_Payment
 ### Query 1: This query retrieves the appliance name, room name, start time, end time, and user's first and last name for all appliances that are in a common area and currently in use.
 
 
-SELECT appliance_name, room_name, start_time, end_time, first_name, last_name
-FROM Appliance
-NATURAL JOIN Room
-NATURAL JOIN Schedule
-NATURAL JOIN User
-WHERE room_type = 'Common Area' AND status = true;
+SELECT appliance_name, room_name, start_time, end_time, first_name, last_name  
+FROM Appliance  
+NATURAL JOIN Room  
+NATURAL JOIN Schedule  
+NATURAL JOIN User  
+WHERE room_type = 'Common Area' AND status = true;  
 
 
 Output:
-appliance_name,room_name,start_Time,end_time,first_name,last_name
-Refrigerator,Living Room,2023-05-01 08:00:00,2023-05-01 09:00:00,John, Max
-Oven,Living Room,2023-05-02 18:00:00,2023-05-02 19:00:00,John, Max
-Microwave,Living Room,2023-05-04 10:00:00,2023-05-04 11:00:00,John, Max
-Refrigerator,Living Room,2023-05-01 08:00:00,2023-05-01 09:00:00,Jane,Max
-Oven,Living Room,2023-05-02 18:00:00,2023-05-02 19:00:00,Jane,Max
-Microwave,Living Room,2023-05-04 10:00:00,2023-05-04 11:00:00,Jane,Max
-Refrigerator,Living Room,2023-05-01 08:00:00,2023-05-01 09:00:00,Joe,Max
-Oven,Living Room,2023-05-02 18:00:00,2023-05-02 19:00:00,Joe,Max
-Microwave,Living Room,2023-05-04 10:00:00,2023-05-04 11:00:00,Joe,Max
+appliance_name,room_name,start_Time,end_time,first_name,last_name  
+Refrigerator,Living Room,2023-05-01 08:00:00,2023-05-01 09:00:00,John, Max  
+Oven,Living Room,2023-05-02 18:00:00,2023-05-02 19:00:00,John, Max  
+Microwave,Living Room,2023-05-04 10:00:00,2023-05-04 11:00:00,John, Max  
+Refrigerator,Living Room,2023-05-01 08:00:00,2023-05-01 09:00:00,Jane,Max  
+Oven,Living Room,2023-05-02 18:00:00,2023-05-02 19:00:00,Jane,Max  
+Microwave,Living Room,2023-05-04 10:00:00,2023-05-04 11:00:00,Jane,Max  
+Refrigerator,Living Room,2023-05-01 08:00:00,2023-05-01 09:00:00,Joe,Max  
+Oven,Living Room,2023-05-02 18:00:00,2023-05-02 19:00:00,Joe,Max  
+Microwave,Living Room,2023-05-04 10:00:00,2023-05-04 11:00:00,Joe,Max  
 
 
 ### Query 2: This query retrieves the appliance name, manufacturer name, date of last maintenance/repair, and start date of insurance policy for light sources
 
 
-SELECT Appliance.appliance_name, Manufacturer.manufacturer_name, Maintenance_Repair.date_last_maintenance, Insurance_Policy.start_date
-FROM Appliance
-INNER JOIN Manufacturer ON Appliance.manufacturer_id = Manufacturer.manufacturer_id
-LEFT JOIN Maintenance_Repair ON Appliance.maintenance_repair_id = Maintenance_Repair.maintenance_repair_id
-INNER JOIN Insurance_Policy ON Appliance.appliance_id = Insurance_Policy.appliance_id
+SELECT Appliance.appliance_name, Manufacturer.manufacturer_name, Maintenance_Repair.date_last_maintenance, Insurance_Policy.start_date    
+FROM Appliance   
+INNER JOIN Manufacturer ON Appliance.manufacturer_id = Manufacturer.manufacturer_id  
+LEFT JOIN Maintenance_Repair ON Appliance.maintenance_repair_id = Maintenance_Repair.maintenance_repair_id  
+INNER JOIN Insurance_Policy ON Appliance.appliance_id = Insurance_Policy.appliance_id  
 WHERE Appliance.appliance_type = 'Light' ;
 
 Output:
 
-appliance_name,manufacturer_name,date_last_maintenance,start_date
-Kitchen Light,LG,2023-02-01 12:00:00,2023-04-01
-Laundry Light,LG,2023-02-01 12:00:00,2023-04-01
-Master Bedroom Light,LG,2023-02-01 12:00:00,2023-04-01
-Child Bedroom Light,LG,2023-02-01 12:00:00,2023-04-01
-Living Room Light,LG,2023-02-01 12:00:00,2023-04-01
+appliance_name,manufacturer_name,date_last_maintenance,start_date  
+Kitchen Light,LG,2023-02-01 12:00:00,2023-04-01  
+Laundry Light,LG,2023-02-01 12:00:00,2023-04-01  
+Master Bedroom Light,LG,2023-02-01 12:00:00,2023-04-01  
+Child Bedroom Light,LG,2023-02-01 12:00:00,2023-04-01  
+Living Room Light,LG,2023-02-01 12:00:00,2023-04-01  
 
 
 ### Query 3: This query selects appliance_name from Appliance and room_name from Room. It performs a left outer join between the two tables using the room_id column
 
 
-SELECT a.appliance_name, r.room_name
-FROM Appliance a
-LEFT OUTER JOIN Room r ON a.room_id = r.room_id
-ORDER BY a.appliance_name;
+SELECT a.appliance_name, r.room_name  
+FROM Appliance a  
+LEFT OUTER JOIN Room r ON a.room_id = r.room_id  
+ORDER BY a.appliance_name;  
 
 Output:
 
-appliance_name,room_name
-Air Conditioner,Master Bedroom
-Blender,Living Room
-Child Bedroom Light,Child Bedroom
-Dishwasher,Living Room
-Dryer,Kitchen
-Fan,Master Bedroom Bathroom
-Kitchen Light,Kitchen
-Laundry Light,Laundry
-Living Room Light,Living Room
-Master Bedroom Light,Master Bedroom
-Microwave,Living Room
-Oven,Living Room
-Refrigerator,Living Room
-Toaster,Living Room
-Washing Machine,Kitchen
+appliance_name,room_name  
+Air Conditioner,Master Bedroom  
+Blender,Living Room  
+Child Bedroom Light,Child Bedroom  
+Dishwasher,Living Room  
+Dryer,Kitchen  
+Fan,Master Bedroom Bathroom  
+Kitchen Light,Kitchen   
+Laundry Light,Laundry  
+Living Room Light,Living Room  
+Master Bedroom Light,Master Bedroom  
+Microwave,Living Room  
+Oven,Living Room  
+Refrigerator,Living Room  
+Toaster,Living Room  
+Washing Machine,Kitchen  
 
 
 
 ### Query 4: calculate the total cost of repairs for all appliances in the Appliance table
 
 
-SELECT SUM(cost_of_repairs) AS total_cost_of_repairs
-FROM Maintenance_Repair
-WHERE maintenance_repair_id IN (SELECT maintenance_repair_id FROM Appliance);
+SELECT SUM(cost_of_repairs) AS total_cost_of_repairs  
+FROM Maintenance_Repair  
+WHERE maintenance_repair_id IN (SELECT maintenance_repair_id FROM Appliance);  
 
 
 Output:
 
-total_cost_of_repairs
-850.0
+total_cost_of_repairs  
+850.0  
 
 
 ### Query 5: Query to find all appliances in a room with at least one active schedule
