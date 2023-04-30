@@ -61,7 +61,7 @@ Nontrivial Functional Dependencies:
 Result: Yes, the determinant {user_id} is a candidate key, so User is in BCNF.
 
 
-###Account Table
+### Account Table
 
 Account(user_in_id, log_in_Time, log_out_time, user_id*)
 
