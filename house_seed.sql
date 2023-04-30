@@ -24,7 +24,6 @@ INSERT INTO Appliance(appliance_id, appliance_name, appliance_type, appliance_br
 (15, 'Living Room Light', 'Light', 'Leviton', 'L600', 1, 2, 3);
 
 
-
 INSERT INTO Room(room_id, room_name, room_type, parent_room_id) VALUES
 (1, 'Living Room', 'Common Area', NULL),
 (2, 'Kitchen', 'Common Area',  NULL),
@@ -38,7 +37,7 @@ INSERT INTO User(user_id, first_name, Last_name , username, password, phone_numb
 (2, 'Jane','Max','john_Max', 'abc123', 0987654321),
 (3, 'Joe','Max','Joe', 'abcd1234', NULL);
 
-INSERT INTO Account(account_number,account_type,user_in_id, log_in_Time, log_out_time) VALUES
+INSERT INTO Account(account_number,account_type,user_id, log_in_Time, log_out_time) VALUES
 (100, 1,'Admin', '2023-04-09 10:00:00', '2023-04-09 12:00:00'),
 (101, 1,'Member', '2023-04-09 10:00:00', '2023-04-09 12:00:00'),
 (200, 2,'Member' ,'2023-04-09 13:00:00', '2023-04-09 16:00:00'),
@@ -51,8 +50,6 @@ INSERT INTO Schedule(schedule_id, start_Time, end_time, recurances, status, appl
 (3, '2023-05-02 18:00:00', '2023-05-02 19:00:00', 2, true, 3),
 (4, '2023-05-03 09:00:00', '2023-05-03 10:00:00', 1, false, 4),
 (5, '2023-05-04 10:00:00', '2023-05-04 11:00:00', 4, true, 5);
-
-
 
 INSERT INTO Manufacturer(manufacturer_id, manufacturer_name, contact_info, warranty_details) VALUES
 (1, 'LG Electronics', 'contact@lg.com', '1 year warranty for parts and labor'),
@@ -93,7 +90,6 @@ select * from Room;
 select * from User;
 select * from Account;
 select * from Schedule;
---select * from Usage;
 select * from Manufacturer;
 select * from Maintenance_Repair;
 select * from Insurance_Policy;
