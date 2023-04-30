@@ -290,7 +290,7 @@ appliance_id,appliance_name,appliance_type,appliance_brand,appliance_model,room_
 7,Dishwasher,Kitchen,Bosch,SHEM63W55N,1,7,2
 
 
-/* Query 7: Select all the appliances where it is in the living room manufactured by LG */
+ Query 7: Select all the appliances where it is in the living room manufactured by LG */
 
 SELECT appliance_name FROM Appliance
 NATURAL JOIN Room
@@ -307,7 +307,7 @@ appliance_name
 Living Room Light
 
 
-/*Query 8: Display the count of appliances in each room with more than 2 appliances*/
+### Query 8: Display the count of appliances in each room with more than 2 appliances
 
 SELECT Room.room_name, COUNT(Appliance.appliance_id) AS appliance_count
 FROM Room
