@@ -8,7 +8,7 @@ Description: The schema represents a database for managing smart home appliances
 
 User: This table stores user details such as user_id, first name, last name, username, password, and phone number. Each user can have multiple accounts and multiple appliances.
 
-Account: This table stores login details of users including user_in_id, log_in_Time, and log_out_time. Each account is associated with a user through the user_id foreign key reference.
+Account: This table stores login details and the accounts users have including account number, account type (e.g. admin, member, guest) user_id, log_in_Time, and log_out_time. Each account is associated with a user through the user_id foreign key reference.
 
 Room: This table stores information about rooms such as room_id, room_name, room_type, and parent_room_id. Each room can have multiple appliances, and each room can be a sub-room of another room.
 
@@ -27,11 +27,12 @@ Premium_Payment: This table stores information about premium payments for insura
 
 ## Entity-Relationship Diagram
 
+![image](https://user-images.githubusercontent.com/98676405/235338766-9b88b570-720d-48e9-9099-d2c23176b960.png)
 
 
 ## Relational Schema
 User(**user_id**, first_name, last_name, username, password, phone_number)
-Account(**account_number**, ***user_in_id*** , account_type, log_in_Time , log_out_time)
+Account(**account_number**, ***user_id*** , account_type, log_in_Time , log_out_time)
 Room(**room_id**, room_name, room_type, ***parent_room_id***)
 Appliance(**appliance_id**, appliance_name, appliance_type, appliance_brand, appliance_model, ***room_id***, ***manufacturer_id***, ***maintenance_repair_id***)
 Schedule(**schedule_id**, start_Time, end_time, recurances, status, ***appliance_id***)
@@ -43,7 +44,7 @@ Premium_Payment(**payment_id**, ***policy_id***, payment_date, amount)
 Note:
 Bold words are primary keys
 Italic word are forigen keys
-The reason that the user id in accout has a different name (user_in_id) is becuase I wanted to specficy that the user has an account.
+The reason that the user id in accout has a different name (user_id) is becuase I wanted to specficy that the user has an account.
 
 
 ## Boyce–Codd Normal Form Decomposition
@@ -75,7 +76,9 @@ Explanation: The primary key of the Account table is {account_number, user_in_id
 Result: Yes, the determinant {user_in_id} is a candidate key, so Account is in BCNF.
 
 
-###Room(room_id, room_name, room_type, parent_room_id*)
+### Room Table
+
+Room(room_id, room_name, room_type, parent_room_id*)
 
 Nontrivial Functional Dependencies:
 {room_id} → {room_name, room_type, parent_room_id}
@@ -84,9 +87,9 @@ Explanation: This functional dependency means that given a value of room_id, we 
 
 Result:Yes,  the determinant {room_id} is a candidate key, so Appliance is in BCNF.
 
+### Appliance Table
 
-
-###Appliance(appliance_id, appliance_name, appliance_type, appliance_brand, appliance_model, room_id*, manufacturer_id*, maintenance_repair_id*)
+Appliance(appliance_id, appliance_name, appliance_type, appliance_brand, appliance_model, room_id*, manufacturer_id*, maintenance_repair_id*)
 
 Nontrivial Functional Dependencies:
 {appliance_id} -> {appliance_name, appliance_type, appliance_brand, appliance_model, room_id, manufacturer_id, maintenance_repair_id}
@@ -96,7 +99,9 @@ Explanation: the {appliance_id} attribute is the primary key of the Appliance ta
 Result: Yes, the determinant {appliance_id} is a candidate key, so Appliance is in BCNF.
 
 
-###Schedule(schedule_id, start_Time, end_time, recurances, status, appliance_id*)
+### Schedule Table
+
+Schedule(schedule_id, start_Time, end_time, recurances, status, appliance_id*)
 
 Nontrivial Functional Dependencies:
 
@@ -109,7 +114,9 @@ Explanation: The Schedule table only has one non-trivial functional dependency: 
 Result: Yes, the determinant {schedule_id} is a candidate key, so Schedule is in BCNF.
 
 
-###Manufacturer(manufacturer_id, manufacturer_name, contact_info, warranty_details)
+### Manufacturer Table
+
+Manufacturer(manufacturer_id, manufacturer_name, contact_info, warranty_details)
 
 Nontrivial Functional Dependencies:
 {manufacturer_id} → {manufacturer_name, contact_info, warranty_details}
@@ -117,16 +124,18 @@ Nontrivial Functional Dependencies:
 Result:Yes, the determinant {manufacturer_id} is a candidate key, so Manufacturer is in BCNF.
 
 
-###Maintenance_Repair(maintenance_repair_id, date_last_maintenance, cost_of_repairs, service_provider)
+### Maintenance_Repair Table
+Maintenance_Repair(maintenance_repair_id, date_last_maintenance, cost_of_repairs, service_provider)
 
 Nontrivial Functional Dependencies:
 {maintenance_repair_id} → {date_last_maintenance,cost_of_repairs, service_provider}
 
-
 Result: Yes, the determinant {maintenance_repair_id} is a candidate key, so Maintenance_Repair is in BCNF.
 
 
-###Insurance_Policy(policy_id, appliance_id*, start_date, end_date)
+### Insurance_Policy Table
+
+Insurance_Policy(policy_id, appliance_id*, start_date, end_date)
 
 Nontrivial Functional Dependencies:
 {policy_id, appliance_id} → { start_date, end_date}
@@ -135,7 +144,9 @@ This implies that given a policy_id and an appliance_id, there can only be one s
 Result: Yes, the determinant {policy_id} is a candidate key, so Insurance_Policy is in BCNF.
 
 
-###Premium_Payment(payment_id, policy_id*, payment_date, amount)
+### Premium_Payment Table
+
+Premium_Payment(payment_id, policy_id*, payment_date, amount)
 
 Nontrivial Functional Dependencies:
 {payment_id} → {policy_id, payment_date, amount}
