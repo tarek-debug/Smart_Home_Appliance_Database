@@ -167,10 +167,9 @@ Result: Yes, the determinant {payment_id} is a candidate key, so Premium_Payment
 ## Transaction and Query Executions
 
 
-/*
-Query 1: This query retrieves the appliance name, room name, start time, end time, and user's first and last name for
-all appliances that are in a common area and currently in use.
-*/
+
+### Query 1: This query retrieves the appliance name, room name, start time, end time, and user's first and last name for all appliances that are in a common area and currently in use.
+
 
 SELECT appliance_name, room_name, start_time, end_time, first_name, last_name
 FROM Appliance
@@ -192,10 +191,9 @@ Refrigerator,Living Room,2023-05-01 08:00:00,2023-05-01 09:00:00,Joe,Max
 Oven,Living Room,2023-05-02 18:00:00,2023-05-02 19:00:00,Joe,Max
 Microwave,Living Room,2023-05-04 10:00:00,2023-05-04 11:00:00,Joe,Max
 
-/*
-Query 2: This query retrieves the appliance name, manufacturer name, date of last maintenance/repair,
-and start date of insurance policy for light sources
-*/
+
+### Query 2: This query retrieves the appliance name, manufacturer name, date of last maintenance/repair, and start date of insurance policy for light sources
+
 
 SELECT Appliance.appliance_name, Manufacturer.manufacturer_name, Maintenance_Repair.date_last_maintenance, Insurance_Policy.start_date
 FROM Appliance
@@ -213,10 +211,9 @@ Master Bedroom Light,LG,2023-02-01 12:00:00,2023-04-01
 Child Bedroom Light,LG,2023-02-01 12:00:00,2023-04-01
 Living Room Light,LG,2023-02-01 12:00:00,2023-04-01
 
-/*
-Query 3: This query selects appliance_name from Appliance and room_name from Room.
-It performs a left outer join between the two tables using the room_id column
-*/
+
+### Query 3: This query selects appliance_name from Appliance and room_name from Room. It performs a left outer join between the two tables using the room_id column
+
 
 SELECT a.appliance_name, r.room_name
 FROM Appliance a
@@ -243,9 +240,9 @@ Toaster,Living Room
 Washing Machine,Kitchen
 
 
-/*
-Query 4: calculate the total cost of repairs for all appliances in the Appliance table
-*/
+
+### Query 4: calculate the total cost of repairs for all appliances in the Appliance table
+
 
 SELECT SUM(cost_of_repairs) AS total_cost_of_repairs
 FROM Maintenance_Repair
@@ -258,7 +255,7 @@ total_cost_of_repairs
 850.0
 
 
-/* Query 5: Query to find all appliances in a room with at least one active schedule*/
+### Query 5: Query to find all appliances in a room with at least one active schedule
 
 SELECT * FROM Appliance
 WHERE room_id = (
@@ -275,7 +272,8 @@ appliance_id,appliance_name,appliance_type,appliance_brand,appliance_model,room_
 5,Microwave,Kitchen,Panasonic,NN-SN966S,1,5,1
 
 
-/*Query 6: Query to find all appliances that have had maintenance or repairs costing more than the average cost across all appliances*/
+### Query 6: Query to find all appliances that have had maintenance or repairs costing more than the average cost across all appliances
+
 SELECT * FROM Appliance
 WHERE maintenance_repair_id IN (
   SELECT maintenance_repair_id FROM Maintenance_Repair
@@ -290,7 +288,7 @@ appliance_id,appliance_name,appliance_type,appliance_brand,appliance_model,room_
 7,Dishwasher,Kitchen,Bosch,SHEM63W55N,1,7,2
 
 
- Query 7: Select all the appliances where it is in the living room manufactured by LG */
+### Query 7: Select all the appliances where it is in the living room manufactured by LG 
 
 SELECT appliance_name FROM Appliance
 NATURAL JOIN Room
