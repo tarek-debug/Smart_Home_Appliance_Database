@@ -12,7 +12,7 @@
 
 - Room: This table stores information about rooms such as room_id, room_name, room_type, and parent_room_id. Each room can have multiple appliances, and each room can be a sub-room of another room.
 
-- Appliance: This table stores information about appliances such as appliance_id, appliance_name, appliance_type, appliance_brand, appliance_model, and foreign key references to room_id, manufacturer_id, and maintenance_repair_id tables. Each appliance is associated with a room, a manufacturer, and a maintenance and repair record.
+- Appliance: This table stores information about appliances such as appliance_id, appliance_name, appliance_type, appliance_brand, appliance_model, and foreign key references to room_id, manufacturer_id, and maintenance_repair_id tables. Each appliance is associated with a room, a manufacturer, and a maintenance-repair record.
 
 - Schedule: This table stores information about the schedule of maintenance and repair tasks for appliances such as schedule_id, start_Time, end_time, recurances, status, and foreign key reference to the appliance_id table. Each schedule is associated with an appliance.
 
@@ -50,7 +50,7 @@ Insurance_Policy(**policy_id**, ***appliance_id***, start_date, end_date)
 
 Premium_Payment(**payment_id**, ***policy_id***, payment_date, amount)
 
-Note:
+**Note:**  
 Bold words are primary keys.   
 Italic word are forigen keys.   
 
