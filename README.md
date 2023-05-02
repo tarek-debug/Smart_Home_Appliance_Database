@@ -254,13 +254,14 @@ Living Room Light,LG,2023-02-01 12:00:00,2023-04-01
 
 ### Query 3: This query selects appliance_name from Appliance and room_name from Room. It performs a left outer join between the two tables using the room_id column
 
+#### Code:
 
 SELECT a.appliance_name, r.room_name  
 FROM Appliance a  
 LEFT OUTER JOIN Room r ON a.room_id = r.room_id  
 ORDER BY a.appliance_name;  
 
-Output:
+#### Output:
 
 appliance_name,room_name  
 Air Conditioner,Master Bedroom  
