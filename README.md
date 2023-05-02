@@ -61,27 +61,27 @@ Italic word are forigen keys.
 User(user_id, first_name, last_name, username, password, phone_number)
 
 Nontrivial Functional Dependencies:
-- {user_id} -> {first_name, last_name, username, password, phone_number}
-- {user_id} -> {first_name}
-- {user_id} -> {last_name, username, password, phone_number}
-- {user_id} -> {password}
-- {user_id} -> {phone_number}
+- {user_id} -> {first_name, last_name, username, password, phone_number}  
+- {user_id} -> {first_name}  
+- {user_id} -> {username}  
+- {user_id} -> {password}  
+- {user_id} -> {phone_number}  
 
 Result: Yes, the determinant {user_id} is a candidate key, so User is in BCNF.
 
 
 ### Account Table
 
-Account(user_in_id, log_in_Time, log_out_time, user_id*)
+Account(user_id, log_in_Time, log_out_time, user_id*)
 
 Nontrivial Functional Dependencies:
 
-- {account_number, user_in_id} → {account_type, log_in_Time, log_out_time}  
-- {user_in_id} → {account_number, account_type, log_in_Time, log_out_time}  
+- {account_number, user_id} → {account_type, log_in_Time, log_out_time}  
+- {user_id} → {account_type, log_in_Time, log_out_time}  
 
-Explanation: The primary key of the Account table is {account_number, user_in_id}, which is a superkey for all of the functional dependencies in the table. Additionally, the foreign key constraint on user_in_id ensures that every value in this column references a valid user_id in the User table, which means that there are no redundancies or anomalies caused by this dependency.
+Explanation: The primary key of the Account table is {account_number, user_id}, which is a superkey for all of the functional dependencies in the table. Additionally, the foreign key constraint on user_id ensures that every value in this column references a valid user_id in the User table, which means that there are no redundancies or anomalies caused by this dependency.
 
-Result: Yes, the determinant {user_in_id} is a candidate key, so Account is in BCNF.
+Result: Yes, the determinant {user_id} is a candidate key, so Account is in BCNF.
 
 
 ### Room Table
@@ -90,7 +90,11 @@ Room(room_id, room_name, room_type, parent_room_id*)
 
 Nontrivial Functional Dependencies:
 
-- {room_id} → {room_name, room_type, parent_room_id}
+- {room_id} → {room_name, room_type, parent_room_id}  
+- {room_id} → {room_name}  
+- {room_id} → {room_type}  
+- {room_id} → {parent_room_id}  
+
 
 Explanation: This functional dependency means that given a value of room_id, we can determine the corresponding room_name, room_type, and parent_room_id. Since room_id is the primary key, it is already a superkey, and this functional dependency does not violate BCNF.
 
@@ -102,7 +106,14 @@ Result:Yes,  the determinant {room_id} is a candidate key, so Appliance is in BC
 
 Nontrivial Functional Dependencies:
 
-- {appliance_id} -> {appliance_name, appliance_type, appliance_brand, appliance_model, room_id, manufacturer_id, maintenance_repair_id}
+- {appliance_id} -> {appliance_name, appliance_type, appliance_brand, appliance_model, room_id, manufacturer_id, maintenance_repair_id}  
+- {appliance_id} -> {appliance_name}  
+- {appliance_id} -> {appliance_type}  
+- {appliance_id} -> {appliance_brand}  
+- {appliance_id} -> {appliance_model}  
+- {appliance_id} -> {room_id}  
+- {appliance_id} -> {manufacturer_id}  
+- {appliance_id} -> {maintenance_repair_id}  
 
 Explanation: the {appliance_id} attribute is the primary key of the Appliance table, which means that it is already guaranteed to be unique and can uniquely identify each tuple in the table. Therefore, any attribute that is functionally dependent on appliance_id is also guaranteed to be unique for each tuple in the table.
 
@@ -115,9 +126,18 @@ Schedule(schedule_id, start_Time, end_time, recurances, status, appliance_id*)
 
 Nontrivial Functional Dependencies:
 
-- {schedule_id} → {start_time, end_time, recurances, status, appliance_id}
-
-- {appliance_id} → {schedule_id, start_time, end_time, recurances, status}
+- {schedule_id} → {start_time, end_time, recurances, status, appliance_id}  
+- {appliance_id} → {schedule_id, start_time, end_time, recurances, status}  
+- {schedule_id} → {start_time}  
+- {schedule_id} → {end_time}  
+- {schedule_id} → {recurances}  
+- {schedule_id} → {status}  
+- {schedule_id} → {appliance_id}  
+- {appliance_id} → {schedule_id}  
+- {appliance_id} → {start_time}  
+- {appliance_id} → {end_time}  
+- {appliance_id} → {recurances}  
+- {appliance_id} → {status}  
 
 Explanation: The Schedule table only has one non-trivial functional dependency: {schedule_id} → {start_Time, end_time, recurances, status, appliance_id}. This functional dependency meets the requirements of BCNF since the determinant {schedule_id} is a superkey of the table, meaning that every non-key attribute is functionally dependent on it. Therefore, the Schedule table is in BCNF.
 
@@ -130,7 +150,10 @@ Result: Yes, the determinant {schedule_id} is a candidate key, so Schedule is in
 
 Nontrivial Functional Dependencies:
 
-- {manufacturer_id} → {manufacturer_name, contact_info, warranty_details}
+- {manufacturer_id} → {manufacturer_name, contact_info, warranty_details}  
+- {manufacturer_id} → {manufacturer_name}  
+- {manufacturer_id} → {contact_info}  
+- {manufacturer_id} → {warranty_details}  
 
 Result:Yes, the determinant {manufacturer_id} is a candidate key, so Manufacturer is in BCNF.
 
@@ -140,7 +163,10 @@ Maintenance_Repair(maintenance_repair_id, date_last_maintenance, cost_of_repairs
 
 Nontrivial Functional Dependencies:
 
-- {maintenance_repair_id} → {date_last_maintenance,cost_of_repairs, service_provider}
+- {maintenance_repair_id} → {date_last_maintenance,cost_of_repairs, service_provider}  
+- {maintenance_repair_id} → {date_last_maintenance}  
+- {maintenance_repair_id} → {cost_of_repairs}  
+- {maintenance_repair_id} → {service_provider}  
 
 Result: Yes, the determinant {maintenance_repair_id} is a candidate key, so Maintenance_Repair is in BCNF.
 
@@ -151,11 +177,13 @@ Insurance_Policy(policy_id, appliance_id*, start_date, end_date)
 
 Nontrivial Functional Dependencies:
 
-- {policy_id, appliance_id} → { start_date, end_date}
+- {policy_id, appliance_id} → { start_date, end_date}  
+- {policy_id} → { start_date, end_date}  
+- {appliance_id} → { start_date, end_date}  
 
 Exlpanation:
 This implies that given a policy_id and an appliance_id, there can only be one start date and end date associated with that combination. Therefore, it satisfies the BCNF criterion.
-Result: Yes, the determinant {policy_id} is a candidate key, so Insurance_Policy is in BCNF.
+Result: Yes, the determinant {policy_id, appliance_id} is a candidate key, so Insurance_Policy is in BCNF.
 
 
 ### Premium_Payment Table
@@ -164,7 +192,11 @@ Premium_Payment(payment_id, policy_id*, payment_date, amount)
 
 Nontrivial Functional Dependencies:
 
-- {payment_id} → {policy_id, payment_date, amount}
+- {payment_id} → {policy_id, payment_date, amount}  
+- {payment_id} → {policy_id}  
+- {payment_id} → {payment_date}  
+- {payment_id} → {amount}  
+
 
 Explanation:
 Since the primary key is {payment_id}, every other attribute in the table is functionally dependent on {payment_id}. In other words, given a value for {payment_id}, we can uniquely determine the values for {policy_id}, {payment_date}, and {amount}. Therefore, the only non-trivial functional dependency in this table is {payment_id} → {policy_id, payment_date, amount}.
